@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Auth::routes();
+
+//=== AUTH WALL ===//
+Route::middleware(['auth'])->group(function(){
+	Route::get('/home', 'HomeController@index')->name('home');
 });
