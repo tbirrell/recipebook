@@ -1,19 +1,24 @@
 {
-    "name": "laravel/laravel",
+    "name": "tbirrell/recipebook",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
+    "description": "",
+    "keywords": [],
+    "license": "MIT", 
+    "repositories": [
+        {
+            "url": "git@github.com:tbirrell/Laravel-Userstamps.git",
+            "type": "git"
+        }
     ],
-    "license": "MIT",
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "wildside/userstamps": "master-dev"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",

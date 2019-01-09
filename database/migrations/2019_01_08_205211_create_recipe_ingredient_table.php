@@ -21,6 +21,9 @@ class CreateRecipeIngredientTable extends Migration
             $table->string('amount_unit');
             $table->integer('order');
             $table->timestamps();
+            $table->userstamps();
+            $table->softDeletes();
+            $table->softDeletedBy();
         });
     }
 
