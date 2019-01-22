@@ -36,4 +36,4 @@ Route::middleware(['auth'])->group(function(){
  |----------------------------------------------------------------|
  */
  
-Route::resource('recipes', 'RecipeController');Route::resource('recipes', 'RecipeController');Route::resource('recipes', 'RecipeController');Route::resource('recipes', 'RecipeController');Route::resource('recipes', 'RecipeController');Route::resource('recipes', 'RecipeController');
+Route::resource('recipes', 'RecipeController');

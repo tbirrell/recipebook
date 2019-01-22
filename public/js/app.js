@@ -1773,18 +1773,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       ingredients: [],
       title: '',
-      newIngredient: ''
+      newAmount: '',
+      newIngredient: '',
+      instructions: [],
+      newInstruction: ''
     };
   },
   methods: {
     addIngredient: function addIngredient() {
-      this.ingredients.push(this.newIngredient);
+      this.ingredients.push({
+        amount: this.newAmount,
+        ingredient: this.newIngredient
+      });
+      this.newAmount = '';
       this.newIngredient = '';
+    },
+    addInstruction: function addInstruction() {
+      this.instructions.push(this.newInstruction);
+      this.newInstruction = '';
+    },
+    saveRecipe: function saveRecipe() {
+      axios.post('/recipes', {
+        title: this.title,
+        ingredients: this.ingredients,
+        instructions: this.instructions
+      }).then(function (response) {
+        console.log(response);
+      });
     }
   }
 });
@@ -36642,22 +36669,56 @@ var render = function() {
     _c("input", {
       directives: [
         {
-          name: "modal",
-          rawName: "v-modal",
+          name: "model",
+          rawName: "v-model",
           value: _vm.title,
           expression: "title"
         }
       ],
-      attrs: { type: "text", id: "title" }
+      attrs: { type: "text", id: "title" },
+      domProps: { value: _vm.title },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.title = $event.target.value
+        }
+      }
     }),
     _vm._v(" "),
     _c(
       "ul",
       _vm._l(_vm.ingredients, function(ingredient) {
-        return _c("li", { domProps: { textContent: _vm._s(ingredient) } })
+        return _c("li", [
+          _vm._v(
+            _vm._s(ingredient.amount) + " " + _vm._s(ingredient.ingredient)
+          )
+        ])
       }),
       0
     ),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.newAmount,
+          expression: "newAmount"
+        }
+      ],
+      attrs: { input: "", type: "text", id: "ingredient" },
+      domProps: { value: _vm.newAmount },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.newAmount = $event.target.value
+        }
+      }
+    }),
     _vm._v(" "),
     _c("input", {
       directives: [
@@ -36679,7 +36740,42 @@ var render = function() {
         }
       }
     }),
-    _c("button", { on: { click: _vm.addIngredient } }, [_vm._v("+")])
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.addIngredient } }, [_vm._v("+")]),
+    _vm._v(" "),
+    _c(
+      "div",
+      [
+        _vm._l(_vm.instructions, function(instruction) {
+          return _c("p", { domProps: { textContent: _vm._s(instruction) } })
+        }),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.newInstruction,
+              expression: "newInstruction"
+            }
+          ],
+          domProps: { value: _vm.newInstruction },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.newInstruction = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("button", { on: { click: _vm.addInstruction } }, [_vm._v("+")])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.saveRecipe } }, [_vm._v("Save")])
   ])
 }
 var staticRenderFns = []
@@ -47980,6 +48076,8 @@ Vue.component('recipe-form', __webpack_require__(/*! ./components/recipe/form.vu
 var app = new Vue({
   el: '#app'
 });
+
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 /***/ }),
 
