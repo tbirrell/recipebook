@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RecipeRequest;
 use App\Model\Recipe;
+use App\Model\Ingredient;
 
 class RecipeController extends Controller
 {
@@ -37,8 +38,14 @@ class RecipeController extends Controller
      */
     public function store(RecipeRequest $request)
     {
-        dump($request->all());
-        // $recipe = Recipe::create($request->all());
+        $data = $request->all();
+        $recipe = Recipe::create('name' => $data['name']);
+        foreach ($data['ingredients'] as $ingredients) {
+            Ingredient::create([
+                
+            ]);
+        }
+
         // return response()->json($recipe, 201);
     }
 
@@ -51,7 +58,6 @@ class RecipeController extends Controller
     public function show(Recipe $recipe)
     {
         $recipe = Recipe::findOrFail($id);
-
         
         return view('recipe.show', compact('recipe'));
     }

@@ -1,27 +1,53 @@
 <template>
-    <div>
-        <input type="text" id="title" v-model="title">
-        <ul>
-            <li v-for="ingredient in ingredients">{{ingredient.amount}} {{ingredient.ingredient}}</li>
-        </ul>
-        <input input type="text" id="ingredient" v-model="newAmount">
-        <input type="text" id="ingredient" v-model="newIngredient">
-        <button @click="addIngredient">+</button>
-        <div>
-            <p v-for="instruction in instructions" v-text="instruction"></p>
-            <textarea v-model="newInstruction"></textarea>
-            <button @click="addInstruction">+</button>
+    <div class="col">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" v-model="name">
         </div>
-        <button @click="saveRecipe">Save</button>
+        <div class="form-group ">
+            <label>Ingredients</label>
+            <div class="form-inline" v-for="ingredient in ingredients">
+                <input type="text" class="form-control" :value="ingredient.amount.quantity">
+                <select class="form-control">
+                    <option v-for="unit in units" :value="unit" v-text="unit" :selected="unit === ingredient.amount.unit"></option>
+                </select>
+                <input type="text" class="form-control" :value="ingredient.ingredient">
+            </div>
+            <div class="form-inline">
+                <input input type="text" class="form-control" id="ingredient" v-model="newAmount">
+                <select class="form-control" v-model="newUnit">
+                    <option v-for="unit in units" :value="unit" v-text="unit"></option>
+                </select>
+                <input type="text" class="form-control" id="ingredient" v-model="newIngredient">
+            </div>
+            <button class="col-sm btn btn-secondary" @click="addIngredient">+</button>
+        </div>
+        <div>
+            <label>Instructions</label>
+            <textarea class="form-control" v-for="instruction in instructions" v-text="instruction"></textarea>
+            <div>
+                <textarea class="form-control" v-model="newInstruction"></textarea>
+                <button class="col-sm btn btn-secondary" @click="addInstruction">+</button>
+            </div>
+        </div>
+        <button class="btn btn-primary" @click="saveRecipe">Save</button>
     </div>
 </template>
 <script>
+    import { VueNestable, VueNestableHandle } from 'vue-nestable';
+
     export default {
+        components: {
+            VueNestable,
+            VueNestableHandle
+        },
         data() {
             return {
+                units: ['oz', 'tsp', 'tbsp', 'cup(s)'],
                 ingredients: [],
-                title: '',
+                name: '',
                 newAmount: '',
+                newUnit: '',
                 newIngredient: '',
                 instructions: [],
                 newInstruction: ''
@@ -30,7 +56,10 @@
         methods: {
             addIngredient() {
                 this.ingredients.push({
-                    amount: this.newAmount,
+                    amount: {
+                        quantity: this.newAmount,
+                        unit: this.newUnit
+                    },
                     ingredient: this.newIngredient
                 });
                 this.newAmount = '';
@@ -42,7 +71,7 @@
             },
             saveRecipe() {
                 axios.post('/recipes', {
-                    title: this.title,
+                    name: this.name,
                     ingredients: this.ingredients,
                     instructions: this.instructions
                 })
