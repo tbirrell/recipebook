@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-//todo add userstamps here
+USe Wildside\Userstamps;
+use App\Traits\Sluggable;
 
 class Food extends Model
 {
 	use Userstamps;
+  use Sluggable;
 
     protected $guarded = ['id'];
     protected $table = 'food';
@@ -18,5 +20,14 @@ class Food extends Model
               ->orWhere('slug', $key)
               ->orWhere('name', $key)
               ->first();
+    }
+    public function scopeRetrieveOrCreate($query, $value)
+    {
+      $food = $query->retrieve($value);
+      if ($food->exists) {
+        return $food;
+      } else {
+        return (new self)->create(['name' => $value]);
+      }
     }
 }

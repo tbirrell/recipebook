@@ -39,14 +39,26 @@ class RecipeController extends Controller
     public function store(RecipeRequest $request)
     {
         $data = $request->all();
-        $recipe = Recipe::create('name' => $data['name']);
-        foreach ($data['ingredients'] as $ingredients) {
+        $recipe = Recipe::create(['name' => $data['name']]);
+        foreach ($data['ingredients'] as $order => $ingredient) {
+            $food = Food::retrieveOrCreate($ingredient['ingredient']);
             Ingredient::create([
-                
+                'recipe_id' => $recipe->id,
+                'food_id' => $food->id,
+                'amount' => $ingredient['amount']['quantity'],
+                'amount_unit' => $ingredient['amount']['unit'],
+                'order' => $order
+            ]);
+        }
+        foreach ($data['instructions'] as $order => $instruction) {
+            Ingredient::create([
+                'recipe_id' => $recipe->id,
+                'instruction' => $instruction,
+                'order' => $order
             ]);
         }
 
-        // return response()->json($recipe, 201);
+        return response()->json($recipe, 201);
     }
 
     /**
