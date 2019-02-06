@@ -20,7 +20,7 @@ trait Sluggable {
 
   public function uniquely()
   {
-  	$this->{$this->slugCol} .= $this->separator.str_random(5);
+  	$this->{$this->slugCol} .= $this->separator.strtolower(str_random(5));
     return $this;
   }
 
