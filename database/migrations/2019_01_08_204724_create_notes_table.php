@@ -19,9 +19,7 @@ class CreateNotesTable extends Migration
             $table->string('noteable_type');
             $table->string('noteable_id');
             $table->timestamps();
-            $table->userstamps();
             $table->softDeletes();
-            $table->softDeletedBy();
         });
     }
 

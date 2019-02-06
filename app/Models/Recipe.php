@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-Use Wildside\Userstamps\Userstamps;
 use App\Traits\Sluggable;
 
 class Recipe extends Model
 {
-		use Userstamps;
 		use Sluggable;
 
 

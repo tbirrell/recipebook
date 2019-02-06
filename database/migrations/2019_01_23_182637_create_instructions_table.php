@@ -19,9 +19,7 @@ class CreateInstructionsTable extends Migration
             $table->text('instruction');
             $table->integer('order');
             $table->timestamps();
-            $table->userstamps();
             $table->softDeletes();
-            $table->softDeletedBy();
         });
     }
 
