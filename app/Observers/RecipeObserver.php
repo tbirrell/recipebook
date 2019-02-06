@@ -11,6 +11,9 @@ class RecipeObserver
     {
     	//slugit
     	$recipe->slugify()->uniquely();
+
+        //make sure owner is set
+        $recipe->user_id = auth()->id();
     }
     public function created (Recipe $recipe){}
     public function updating (Recipe $recipe){}

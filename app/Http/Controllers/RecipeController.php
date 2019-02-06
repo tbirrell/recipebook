@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RecipeRequest;
-use App\Model\Recipe;
-use App\Model\Ingredient;
+use App\Models\Recipe;
+use App\Models\Food;
+use App\Models\Ingredient;
+use App\Models\Instruction;
 
 class RecipeController extends Controller
 {
@@ -51,7 +53,7 @@ class RecipeController extends Controller
             ]);
         }
         foreach ($data['instructions'] as $order => $instruction) {
-            Ingredient::create([
+            Instruction::create([
                 'recipe_id' => $recipe->id,
                 'instruction' => $instruction,
                 'order' => $order

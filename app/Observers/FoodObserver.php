@@ -12,7 +12,7 @@ class FoodObserver
     	if (empty($food->slug)) {
 	    	$food->slugify();
     	}
-    {
+    	
     	if (empty($food->name)) {
 	    	$food->unslugify();
     	}
