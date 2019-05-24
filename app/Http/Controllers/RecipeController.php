@@ -71,7 +71,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        $recipe = Recipe::findOrFail($id);
+        $recipe->load('ingredients', 'instructions');
         
         return view('recipe.show', compact('recipe'));
     }

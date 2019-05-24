@@ -14,6 +14,12 @@ class Food extends Model
     protected $guarded = ['id'];
     protected $table = 'food';
 
+    //=== RELATIONSHIPS ===//
+    public function ingredient()
+    {
+      return $this->hasMany(Ingredient::class);
+    }
+
 
     //=== SCOPES ===//
     public function scopeRetrieve($query, $key)
