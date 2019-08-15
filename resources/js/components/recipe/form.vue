@@ -41,9 +41,10 @@
             VueNestable,
             VueNestableHandle
         },
+        props: ['recipe'],
         data() {
             return {
-                units: ['oz', 'tsp', 'tbsp', 'cup(s)'],
+                units: ['oz', 'tsp', 'tbsp', 'cup(s)', 'whole'],
                 ingredients: [],
                 name: '',
                 newAmount: '',

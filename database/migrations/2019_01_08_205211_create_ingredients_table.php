@@ -17,7 +17,7 @@ class CreateIngredientsTable extends Migration
             $table->increments('id');
             $table->integer('recipe_id');
             $table->integer('food_id');
-            $table->integer('amount');
+            $table->string('amount');
             $table->string('amount_unit');
             $table->integer('order');
             $table->timestamps();

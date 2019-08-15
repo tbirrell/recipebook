@@ -23,6 +23,11 @@ class Recipe extends Model
     	return $this->hasMany(Instruction::class);
     }
 
+    //===ATTRIBUTES===//
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 		//=== SCOPES ===//
     public function scopeRetrieve($query, $key)
     {

@@ -3,6 +3,9 @@
 @section('content')
   <div class="container">
     <div class="row">
+      <h1>{{$recipe->name}}</h1>
+    </div>
+    <div class="row">
         <ul>
       @foreach ($recipe->ingredients as $ingredient)
           <li>{{$ingredient->amount}} {{$ingredient->amount_unit}} - {{$ingredient->food->name}}</li>

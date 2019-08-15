@@ -16,9 +16,7 @@ Auth::routes();
 
 //=== AUTH WALL ===//
 Route::middleware(['auth'])->group(function(){
-	Route::get('/', 'HomeController@index');
-	Route::get('/home', 'HomeController@index')->name('home');
-});
+	Route::get('/', 'RecipeController@index');
 
 /* 
  |----------------------------------------------------------------|
@@ -36,4 +34,5 @@ Route::middleware(['auth'])->group(function(){
  |----------------------------------------------------------------|
  */
  
-Route::resource('recipes', 'RecipeController');
+  Route::resource('recipes', 'RecipeController');
+});
