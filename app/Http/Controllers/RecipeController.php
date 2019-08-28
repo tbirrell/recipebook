@@ -84,6 +84,8 @@ class RecipeController extends Controller
      */
     public function edit(Recipe $recipe)
     {
+        $recipe->load('ingredients', 'instructions');
+
         return view('recipe.edit', compact('recipe'));
     }
 

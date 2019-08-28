@@ -41,7 +41,30 @@
             VueNestable,
             VueNestableHandle
         },
-        props: ['recipe'],
+        props: {
+            'recipe': {
+                type: Object,
+                default: {}
+            }
+        },
+        created: function () {
+            console.log(this.recipe);
+            if (Object.keys(this.recipe).length !== 0) {
+                alert('ttt');
+                this.recipe.ingredients.forEach(function(ing) {
+                    //todo what is `this` in this scope?
+                      this.ingredients.push({
+                        //todo find correct keys
+                        amount: {
+                            quantity: ing.newAmount,
+                            unit: ing.newUnit
+                        },
+                        ingredient: ing.newIngredient
+                    });
+                });
+
+            }
+        },
         data() {
             return {
                 units: ['oz', 'tsp', 'tbsp', 'cup(s)', 'whole'],
