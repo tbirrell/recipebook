@@ -32,7 +32,7 @@ class Food extends Model
     
     public function scopeRetrieveOrCreate($query, $value)
     {
-      $food = $query->retrieve($value)->first();
+      $food = $query->retrieve($value);
       if ($food !== null && $food->exists) {
         return $food;
       } else {

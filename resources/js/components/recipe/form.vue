@@ -6,12 +6,12 @@
         </div>
         <div class="form-group ">
             <label>Ingredients</label>
-            <div class="form-inline" v-for="ingredient in ingredients">
-                <input type="text" class="form-control" :value="ingredient.amount.quantity">
-                <select class="form-control">
-                    <option v-for="unit in units" :value="unit" v-text="unit" :selected="unit === ingredient.amount.unit"></option>
+            <div class="form-inline" v-for="(ingredient, i) in ingredients">
+                <input type="text" class="form-control" v-model="ingredients[i].amount.quantity">
+                <select class="form-control" v-model="ingredients[i].amount.unit">
+                    <option v-for="unit in units" :value="unit" v-text="unit"></option>
                 </select>
-                <input type="text" class="form-control" :value="ingredient.ingredient">
+                <input type="text" class="form-control" v-model="ingredients[i].ingredient">
             </div>
             <div class="form-inline">
                 <input input type="text" class="form-control" id="ingredient" v-model="newAmount">
@@ -48,33 +48,37 @@
             }
         },
         created: function () {
-            console.log(this.recipe);
             if (Object.keys(this.recipe).length !== 0) {
-                alert('ttt');
-                this.recipe.ingredients.forEach(function(ing) {
-                    //todo what is `this` in this scope?
-                      this.ingredients.push({
-                        //todo find correct keys
+                //show name
+                this.name = this.recipe.name;
+                //show ingredients
+                this.recipe.ingredients.forEach((ingredient) => {
+                    this.ingredients.push({
                         amount: {
-                            quantity: ing.newAmount,
-                            unit: ing.newUnit
+                            quantity: ingredient.amount,
+                            unit: ingredient.amount_unit
                         },
-                        ingredient: ing.newIngredient
+                        ingredient: ingredient.food.name
                     });
                 });
-
+                //show instructions
+                this.recipe.instructions.forEach((instruction) => {
+                    this.instructions.push(instruction.instruction);
+                });
+                this.update = true;
             }
         },
         data() {
             return {
-                units: ['oz', 'tsp', 'tbsp', 'cup(s)', 'whole'],
+                units: ['oz', 'tsp', 'tbsp', 'cup(s)', 'lb(s)', 'whole'],
                 ingredients: [],
                 name: '',
                 newAmount: '',
                 newUnit: '',
                 newIngredient: '',
                 instructions: [],
-                newInstruction: ''
+                newInstruction: '',
+                update: false
             }
         },
         methods: {
@@ -94,14 +98,26 @@
                 this.newInstruction = '';
             },
             saveRecipe() {
-                axios.post('/recipes', {
-                    name: this.name,
-                    ingredients: this.ingredients,
-                    instructions: this.instructions
-                })
-                .then(function (response) {
-                  console.log(response);
-                })
+                if (this.update) {
+                    axios.put('/recipes/'+this.recipe.slug, {
+                        name: this.name,
+                        ingredients: this.ingredients,
+                        instructions: this.instructions
+                    })
+                    .then(function (response) {
+                      console.log(response);
+                    })
+                } else {
+                    axios.post('/recipes', {
+                        name: this.name,
+                        ingredients: this.ingredients,
+                        instructions: this.instructions
+                    })
+                    .then(function (response) {
+                      console.log(response);
+                      this.update = true;
+                    })
+                }
             }
         }
     }
