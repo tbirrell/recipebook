@@ -104,7 +104,7 @@
                         ingredients: this.ingredients,
                         instructions: this.instructions
                     })
-                    .then(function (response) {
+                    .then((response) => {
                       console.log(response);
                     })
                 } else {
@@ -113,9 +113,11 @@
                         ingredients: this.ingredients,
                         instructions: this.instructions
                     })
-                    .then(function (response) {
+                    .then((response) => {
                       console.log(response);
+                      console.log('t');
                       this.update = true;
+                      window.location.href = '/recipes/' /*+ response.slug*/;
                     })
                 }
             }

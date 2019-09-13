@@ -22,17 +22,17 @@ class Food extends Model
 
 
     //=== SCOPES ===//
-    public function scopeRetrieve($query, $key)
+    public static function retrieve($key)
     {
-        return $query->where('id', $key)
+        return self::where('id', $key)
               ->orWhere('slug', $key)
               ->orWhere('name', $key)
               ->first();
     }
     
-    public function scopeRetrieveOrCreate($query, $value)
+    public static function retrieveOrCreate($value)
     {
-      $food = $query->retrieve($value);
+      $food = self::retrieve($value);
       if ($food !== null && $food->exists) {
         return $food;
       } else {
