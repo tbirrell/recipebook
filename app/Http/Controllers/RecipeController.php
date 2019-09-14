@@ -71,7 +71,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        $recipe->load('ingredients', 'instructions');
+        $recipe->load('ingredients.food', 'instructions');
         
         return view('recipe.show', compact('recipe'));
     }
@@ -84,6 +84,8 @@ class RecipeController extends Controller
      */
     public function edit(Recipe $recipe)
     {
+        $recipe->load('ingredients.food', 'instructions');
+
         return view('recipe.edit', compact('recipe'));
     }
 
@@ -96,10 +98,30 @@ class RecipeController extends Controller
      */
     public function update(RecipeRequest $request, Recipe $recipe)
     {
-        $recipe = Recipe::findOrFail($id);
-        $recipe->update($request->all());
+        $data = $request->all();
+        $recipe->name = $data['name'];
+        foreach ($data['ingredients'] as $order => $ingredient) {
+            $food = Food::retrieveOrCreate($ingredient['ingredient']);
+            $ing = Ingredient::firstOrCreate([
+                'recipe_id' => $recipe->id,
+                'food_id' => $food->id
+            ]);
+            $ing->amount = $ingredient['amount']['quantity'];
+            $ing->amount_unit = $ingredient['amount']['unit'];
+            $ing->order = $order;
+            $ing->save();
+        }
+        foreach ($data['instructions'] as $order => $instruction) {
+            $ins = Instruction::firstOrCreate([
+                'recipe_id' => $recipe->id,
+                'order' => $order
+            ]);
+            $ins->instruction = $instruction;
+            $ins->save();
+        }
+        $recipe->save();
 
-        return response()->json($recipe, 200);
+        return response()->json($request, 200);
     }
 
     /**
