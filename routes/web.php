@@ -18,6 +18,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function(){
 	Route::get('/', 'RecipeController@index');
 
+
 /* 
  |----------------------------------------------------------------|
  | Actions Handled By Resource Controller 												|
