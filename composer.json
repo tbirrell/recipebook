@@ -6,7 +6,7 @@
     "license": "MIT", 
     "repositories": [
         {
-            "url": "git@github.com:tbirrell/Laravel-Userstamps.git",
+            "url": "git@github.com:tbirrell/better-timestamps.git",
             "type": "git"
         }
     ],
@@ -15,7 +15,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "wildside/userstamps": "master-dev"
+        "tbirrell/better-timestamps": "master-dev"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
