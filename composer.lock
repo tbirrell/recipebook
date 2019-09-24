@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7db748409e12c59bf766514c8514849",
+    "content-hash": "11b251000975cb34b3f18c4033d4bc14",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3487,6 +3487,35 @@
             "time": "2019-08-26T08:26:39+00:00"
         },
         {
+            "name": "tbirrell/better-timestamps",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:tbirrell/better-timestamps.git",
+                "reference": "4da63f79fc874f4c720b6062a66f4466239a1338"
+            },
+            "require": {
+                "illuminate/database": ">=5.4.36",
+                "php": ">=7.0.0",
+                "wildside/userstamps": "^0.5.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BetterTimestamps\\Providers\\UserstampServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BetterTimestamps\\": "src"
+                }
+            },
+            "description": "Expand on Laravel's timestamping functionality",
+            "time": "2018-08-17T16:39:30+00:00"
+        },
+        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.1",
             "source": {
@@ -3586,29 +3615,29 @@
         },
         {
             "name": "wildside/userstamps",
-            "version": "dev-master",
+            "version": "0.5.6",
             "source": {
                 "type": "git",
-                "url": "git@github.com:tbirrell/Laravel-Userstamps.git",
-                "reference": "60b2ea31ea29f64086d855dd46309d9dc1e34e45"
+                "url": "https://github.com/WildSideUK/Laravel-Userstamps.git",
+                "reference": "bb99ea07d075c12870f8496ef7f709b1139ca985"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WildSideUK/Laravel-Userstamps/zipball/bb99ea07d075c12870f8496ef7f709b1139ca985",
+                "reference": "bb99ea07d075c12870f8496ef7f709b1139ca985",
+                "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*",
                 "php": ">=5.5.9"
             },
             "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Wildside\\Userstamps\\UserstampServiceProvider"
-                    ]
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Wildside\\Userstamps\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3628,7 +3657,7 @@
                 "updated_by",
                 "userstamps"
             ],
-            "time": "2019-01-09T20:33:08+00:00"
+            "time": "2019-09-03T14:28:12+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -4800,16 +4829,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "e899757bb3df5ff6e95089132f32cd59aac2220a"
+                "reference": "995192df77f63a59e47f025390d2d1fdf8f425ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/e899757bb3df5ff6e95089132f32cd59aac2220a",
-                "reference": "e899757bb3df5ff6e95089132f32cd59aac2220a",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/995192df77f63a59e47f025390d2d1fdf8f425ff",
+                "reference": "995192df77f63a59e47f025390d2d1fdf8f425ff",
                 "shasum": ""
             },
             "require": {
@@ -4845,7 +4874,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2019-07-25T05:29:42+00:00"
+            "time": "2019-09-17T06:23:10+00:00"
         },
         {
             "name": "phpunit/phpunit",
@@ -5591,7 +5620,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "wildside/userstamps": 20
+        "tbirrell/better-timestamps": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
