@@ -98,6 +98,14 @@
                 this.newInstruction = '';
             },
             saveRecipe() {
+                //make sure there isn't a hanging ingredient
+                if (this.newIngredient !== '') {
+                    this.addIngredient();
+                }
+                //make sure there isn't a hanging instruction
+                if (this.newInstruction !== '') {
+                    this.addInstruction();
+                }
                 if (this.update) {
                     axios.put('/recipes/'+this.recipe.slug, {
                         name: this.name,
