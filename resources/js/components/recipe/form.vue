@@ -14,11 +14,13 @@
                 <input type="text" class="form-control" v-model="ingredients[i].ingredient">
             </div>
             <div class="form-inline">
-                <input input type="text" class="form-control" id="ingredient" v-model="newAmount">
-                <select class="form-control" v-model="newUnit">
+                <button v-if="!showDetails" @click="show">></button>
+                <input input type="text" class="form-control" id="ingredient" v-model="newAmount" v-if="showDetails" :placeholder="placeholders.amount">
+                <select class="form-control" v-model="newUnit" v-if="showDetails">
+                    <option value="" disabled selected>Unit</option>
                     <option v-for="unit in units" :value="unit" v-text="unit"></option>
                 </select>
-                <input type="text" class="form-control" id="ingredient" v-model="newIngredient">
+                <input type="text" class="form-control" id="ingredient" v-model="newIngredient" :placeholder="placeholders.ingredient">
             </div>
             <button class="col-sm btn btn-secondary" @click="addIngredient">+</button>
         </div>
@@ -78,11 +80,47 @@
                 newIngredient: '',
                 instructions: [],
                 newInstruction: '',
-                update: false
+                update: false,
+                showDetails: false,
+                placeholders: {
+                    amount: 'Amount',
+                    ingredient: '1/4 cup water of earth'
+                }
             }
         },
         methods: {
             addIngredient() {
+                console.log(this.newUnit);
+                if (this.newAmount === '') {
+                    let explode = this.newIngredient.split(' ');
+                    this.newAmount = explode.splice(0,1)[0];
+
+                    //figure out units
+                    console.log(explode[0]);
+                    console.log(!this.units.includes(explode[0]));
+                    if (!this.units.includes(explode[0])) {
+                        switch (explode[0]) {
+                            case 'cup':
+                            case 'cups':
+                                explode[0] = 'cup(s)'
+                            break;
+                            case 'lb':
+                            case 'lbs':
+                                explode[0] = 'lb(s)'
+                            break;
+                            default:
+                                this.units.push(explode[0])
+                            break;
+                        }
+                        console.log(explode);
+                    }
+                    this.newUnit = explode.splice(0,1)[0];
+                    this.newIngredient = explode.join(' ');
+                }
+                if (this.newUnit === '') {
+                    this.newUnit = 'whole';
+                }
+                console.log(this.newUnit);
                 this.ingredients.push({
                     amount: {
                         quantity: this.newAmount,
@@ -91,6 +129,7 @@
                     ingredient: this.newIngredient
                 });
                 this.newAmount = '';
+                this.newUnit = '';
                 this.newIngredient = '';
             },
             addInstruction() {
@@ -128,6 +167,10 @@
                       window.location.href = '/recipes/' /*+ response.slug*/;
                     })
                 }
+            },
+            show() {
+                this.showDetails = true;
+                this.placeholders.ingredient = 'Ingredient';
             }
         }
     }
